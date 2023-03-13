@@ -1,0 +1,30 @@
+version: "1"
+
+name: "test snapin shams"
+description: "A snap-in to add automatic message in a issue discussion"
+
+connections:
+  - name: devrev
+    description: DevRev PAT
+    types:
+      - devrev-pat
+
+event-sources:
+  - name: devrev-webhook
+    description: Event coming from Devrev
+    display_name: Devrev
+    type: devrev-webhook
+    config:
+      event_types:
+        - work_created
+
+functions:
+  - name: snapin1
+    description: Function_containing_logic_to_make_message_in_issue_sdiscussion
+
+automations:
+  - name: Add_message_to_issue
+    source: devrev-webhook
+    event_types:
+      - work_created
+    function: snapin1
